@@ -137,7 +137,11 @@ export const Count = styled.div`
 `;
 
 export const Cart = styled.div`
-  background-color: ${(props) => props.theme["purple-dark"]};
+  a {
+    background-color: ${(props) => props.theme["purple-dark"]};
+    :hover {
+      background-color: ${(props) => props.theme["purple"]};
+    }
   padding: 11px;
   gap: 8px;
   border-radius: 6px;
@@ -147,5 +151,6 @@ export const Cart = styled.div`
   > svg {
     cursor: pointer;
     fill: ${(props) => props.theme.white};
+  }
   }
 `;

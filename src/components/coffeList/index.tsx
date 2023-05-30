@@ -11,19 +11,19 @@ import { ShoppingCartSimple } from "@phosphor-icons/react";
 import { coffeList } from "../../components/coffeList/list";
 import { CoffeeType } from "../../@types/coffe";
 import { useCart } from "../../contexts/myContexts";
+import { Link } from "react-router-dom";
 
 export function CafeList() {
   const { cart, addNewItem, removeItem, countItems } = useCart();
 
   function addcart(data: CoffeeType) {
-    addNewItem(data)
+    addNewItem(data);
   }
   function removeCart(itemId: number) {
     removeItem(itemId);
   }
 
-
-  console.log(cart)
+  console.log(cart);
   return (
     <Container>
       <h1>Nossos cafés</h1>
@@ -63,12 +63,21 @@ export function CafeList() {
                   </div>
                   <Count>
                     <div className="count">
-                      <button className="remove" onClick={() => removeCart(cafe.id)}>-</button>
+                      <button
+                        className="remove"
+                        onClick={() => removeCart(cafe.id)}
+                      >
+                        -
+                      </button>
                       <span>{count}</span>
-                      <button className="add" onClick={() => addcart(cafe)}>+</button>
+                      <button className="add" onClick={() => addcart(cafe)}>
+                        +
+                      </button>
                     </div>
                     <Cart>
-                      <ShoppingCartSimple size={15} weight="fill" />
+                      <Link to="/checkout">
+                        <ShoppingCartSimple size={15} weight="fill" />
+                      </Link>
                     </Cart>
                   </Count>
                 </BuyCart>
