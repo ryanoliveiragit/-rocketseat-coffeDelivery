@@ -60,7 +60,7 @@ export function Form() {
     setCart,
     historyContext,
     sethistoryCount,
-    historyCount,
+    formatCurrency,
   } = useCart();
 
   const {
@@ -95,7 +95,9 @@ export function Form() {
   const handleClick = (value: string) => {
     setActiveButton(value);
   };
-
+  function formatValue(value: number) {
+    return formatCurrency(value)
+  }
   return (
     <Layout>
       <Container>
@@ -232,7 +234,7 @@ export function Form() {
               <Values>
                 <div>
                   <span>Total de itens</span>
-                  <ValueNumber>R$ {roundedNumber}</ValueNumber>
+                  <ValueNumber>{formatValue(roundedNumber)}</ValueNumber>
                 </div>
 
                 <div>
@@ -242,7 +244,7 @@ export function Form() {
 
                 <div>
                   <Total>Total</Total>
-                  <ValueTotalNumber>R$ {totalValue}</ValueTotalNumber>
+                  <ValueTotalNumber>{formatValue(totalValue)}</ValueTotalNumber>
                 </div>
               </Values>
               <ButtonSubmit

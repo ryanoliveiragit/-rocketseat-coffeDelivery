@@ -93,6 +93,7 @@ export const BuyCart = styled.div`
     align-items: center;
     gap: 8px;
   }
+  gap: .5rem;
   padding-bottom: 2rem;
   display: flex;
   align-items: center;
@@ -102,7 +103,7 @@ export const BuyCart = styled.div`
 `;
 export const Price = styled.span`
   color: ${(props) => props.theme["base-text"]};
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-family: "Baloo 2";
   font-style: normal;
   line-height: 130%;

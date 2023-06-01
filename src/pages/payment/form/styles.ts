@@ -177,6 +177,9 @@ export const ContainerButtons = styled.div`
     order: 0;
     flex-grow: 1;
   }
+  label:hover {
+    background-color: ${(props) => props.theme["base-hover"]};
+  }
   label.active {
     border: 1px solid ${(props) => props.theme.purple};
     background: ${(props) => props.theme["purple-light"]};

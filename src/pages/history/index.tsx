@@ -18,7 +18,7 @@ import { ClipboardText, Coffee } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 
 export function History() {
-  const { history, historyContext } = useCart();
+  const { history, formatCurrency } = useCart();
 
   const groupedItems = history.reduce((groups, item) => {
     const group = groups.find((g) => g.idCompra === item.idCompra);
@@ -30,6 +30,10 @@ export function History() {
     }
     return groups;
   }, [] as { idCompra: number; items: CoffeeType[] }[]);
+
+  function formatValue(value: number) {
+    return formatCurrency(value)
+  }
 
   return (
     <Layout>
@@ -44,7 +48,8 @@ export function History() {
             <ul>
               {groupedItems.map((group) => {
                 let totalPrice = 0;
-
+                let frete = 30;
+  
                 return (
                   <Items>
                     <IdPurshase>
@@ -52,16 +57,16 @@ export function History() {
                       <h1>ID da Compra: #{group.idCompra}</h1>
                     </IdPurshase>
                     {group.items.map((item) => {
-                      totalPrice += item.price;
-
+                      totalPrice += item.price * item.count;
+  
                       return (
                         <ContainerCart>
                           <li key={item.id}>
                             <div>
                               <img src={item.image} alt="" />
-                              <ItemName>1x {item.name}</ItemName>
+                              <ItemName>{item.count} {item.name}</ItemName>
                             </div>
-                            <div>R$ {item.price}</div>
+                            <div>{formatValue(item.price * item.count)}</div>
                           </li>
                         </ContainerCart>
                       );
@@ -71,9 +76,9 @@ export function History() {
                         <img src={delivery} width={90} alt="delivery" />
                         <div>Frete</div>
                       </div>
-                      <div>R$: 30</div>
+                      <div>R$ 30</div>
                     </li>
-                    <h1>Total: R$ {totalPrice + 30}</h1>
+                    <h1>Total: {formatValue(totalPrice + frete)}</h1>
                   </Items>
                 );
               })}

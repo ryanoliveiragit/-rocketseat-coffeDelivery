@@ -15,6 +15,10 @@ export const Container = styled.div`
   order: 0;
   flex-grow: 0;
   margin-right: 8px;
+  :hover {
+    background: ${(props) => props.theme["purple-light"]};
+    border: 1px solid ${(props) => props.theme.purple};
+  }
 
   button {
     cursor: pointer;

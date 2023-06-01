@@ -30,8 +30,10 @@ export function SubmitButtonProvider({
 }
 
 type CartContextType = {
+  formatCurrency: (value: number) => React.ReactNode;
   addNewItem: (data: CoffeeType) => void;
   removeItem: (itemId: number) => void;
+  clearItem: (itemId: number) => void;
   countItems: (productId: number) => number;
   shoppingCart: CoffeeType[];
   cart: CoffeeType[];
@@ -111,7 +113,9 @@ export const CartProvider = ({ children }: CartProviderProps) => {
 
   const historyContext = () => {
     const purchaseItems = cart.reduce((items, item) => {
-      const existingItem = items.find((i) => i.idCompra === item.idCompra && i.id === item.id);
+      const existingItem = items.find(
+        (i) => i.idCompra === item.idCompra && i.id === item.id
+      );
       if (existingItem) {
         existingItem.count += 1; // Incrementa a contagem do item existente
       } else {
@@ -124,7 +128,12 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     setHistory([...history, ...purchaseItems]);
     setNextPurchaseId(nextPurchaseId + 1);
   };
-
+  function formatCurrency(value: number) {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+  }
   const addNewItem = (data: CoffeeType) => {
     const newCart: CoffeeType = {
       idCompra: nextPurchaseId + 1,
@@ -152,10 +161,16 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     updatedCart.splice(itemIndex, 1);
     setCart(updatedCart);
   };
+  const clearItem = (itemId: number) => {
+    const updatedCart = cart.filter((item) => item.id !== itemId);
+    setCart(updatedCart);
+  };
 
   return (
     <CartContext.Provider
       value={{
+        clearItem,
+        formatCurrency,
         sethistoryCount,
         historyCount,
         historyContext,

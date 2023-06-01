@@ -14,7 +14,7 @@ import { ControlerCart } from "../../components/controlerCart";
 import { Trash } from "@phosphor-icons/react";
 
 export function Checkout() {
-  const { cart, addNewItem, removeItem, countItems } = useCart();
+  const { cart, addNewItem, removeItem, countItems, formatCurrency, clearItem } = useCart();
 
   function addcart(data: CoffeeType) {
     addNewItem(data);
@@ -26,6 +26,9 @@ export function Checkout() {
     removeItem(itemId);
   }
 
+  function formatValue(value: number) {
+    return formatCurrency(value)
+  }
   const groupedCoffees = cart.reduce(
     (groups: { [key: string]: CoffeeType[] }, cafe) => {
       const name = cafe.name;
@@ -60,7 +63,7 @@ export function Checkout() {
                       <div>
                         <li>{cafe.name}</li>
                         <Value>
-                          <span>R$ {cafe.price}</span>
+                          <span>{formatValue(cafe.price)}</span>
                         </Value>
                       </div>
                     </NameAndPrice>
@@ -79,7 +82,7 @@ export function Checkout() {
                       </ControlerCart>
 
                       <ControlerCart>
-                        <button type="button">
+                        <button type="button" onClick={() => clearItem(cafe.id)}>
                           <Trash color="#8047F8" />
                           <p>Remover</p>
                         </button>

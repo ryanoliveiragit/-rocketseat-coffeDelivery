@@ -14,13 +14,16 @@ import { useCart } from "../../contexts/myContexts";
 import { Link } from "react-router-dom";
 
 export function CafeList() {
-  const { cart, addNewItem, removeItem, countItems } = useCart();
+  const { cart, addNewItem, removeItem, countItems, formatCurrency } = useCart();
 
   function addcart(data: CoffeeType) {
     addNewItem(data);
   }
   function removeCart(itemId: number) {
     removeItem(itemId);
+  }
+  function formatValue(value: number) {
+    return formatCurrency(value)
   }
 
   console.log(cart);
@@ -58,8 +61,8 @@ export function CafeList() {
                 <p>{cafe.description}</p>
                 <BuyCart>
                   <div>
-                    <span>R$</span>
-                    <Price>{cafe.price}</Price>
+
+                    <Price>{formatValue(cafe.price)}</Price>
                   </div>
                   <Count>
                     <div className="count">
